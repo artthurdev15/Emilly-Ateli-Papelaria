@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-cream text-gray-700 font-sans antialiased;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-paper rounded-2xl shadow-sm border border-rose-100/50;
+  }
+
+  .card-hover {
+    @apply card transition-all duration-300 hover:shadow-md hover:border-rose-200;
+  }
+
+  .gradient-hero {
+    @apply bg-gradient-to-br from-rose-100 via-lilac-100 to-serenity-100;
+  }
+
+  .gradient-btn {
+    @apply bg-gradient-to-r from-rose-300 to-lilac-300 text-white font-semibold
+           rounded-xl transition-all duration-300 hover:from-rose-400 hover:to-lilac-400
+           active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+}
