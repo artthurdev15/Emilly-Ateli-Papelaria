@@ -14,6 +14,7 @@ import { OrdersModule } from "./modules/orders/orders.module";
 import { DashboardModule } from "./modules/dashboard/dashboard.module";
 import { JwtAuthGuard } from "./common/guards/jwt-auth.guard";
 import { AllExceptionsFilter } from "./common/filters/http-exception.filter";
+import { SeedService } from "./common/seed/seed.service";
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { AllExceptionsFilter } from "./common/filters/http-exception.filter";
     DashboardModule,
   ],
   providers: [
+    SeedService,
     { provide: APP_GUARD, useClass: JwtAuthGuard },
     {
       provide: APP_PIPE,
@@ -48,4 +50,3 @@ import { AllExceptionsFilter } from "./common/filters/http-exception.filter";
   ],
 })
 export class AppModule {}
-// forçando deploy no render

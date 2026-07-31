@@ -1,10 +1,14 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
+import { SeedService } from "./common/seed/seed.service";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors();
+
+  const seed = app.get(SeedService);
+  await seed.ensureAdmin();
 
   app.setGlobalPrefix("api");
 
