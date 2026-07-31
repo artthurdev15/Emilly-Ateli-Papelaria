@@ -122,7 +122,7 @@ export default function AdminDashboard() {
                 <XAxis dataKey="month" tick={{ fontSize: 12, fill: "#9ca3af" }} />
                 <YAxis tick={{ fontSize: 12, fill: "#9ca3af" }} tickFormatter={(v) => `R${(v / 100).toFixed(0)}`} />
                 <Tooltip
-                  formatter={(value: number) => [formatPrice(value), "Receita"]}
+                  formatter={(value: any) => [formatPrice(Number(value) || 0), "Receita"]}
                   contentStyle={{ borderRadius: "12px", border: "1px solid #fecdd3", fontSize: "12px" }}
                 />
                 <Bar dataKey="revenue" fill="#fb7185" radius={[6, 6, 0, 0]} />
