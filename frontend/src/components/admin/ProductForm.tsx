@@ -52,7 +52,7 @@ export function ProductForm({ productId }: ProductFormProps) {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    const headers: Record<string, string> = token ? { Authorization: `Bearer ${token}` } : {};
 
     fetch(`${API_BASE_URL}/categories/admin`, { headers })
       .then((r) => r.json())

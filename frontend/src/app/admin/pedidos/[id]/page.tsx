@@ -239,7 +239,7 @@ export default function AdminDetalhePedidoPage({ params }: Props) {
             {order.paymentMethod && (
               <p className="text-xs text-gray-400">
                 Pagamento: {order.paymentMethod}
-                {order.paymentId && ` (${order.paymentId})`}
+                {(order as any).paymentId && ` (${(order as any).paymentId})`}
               </p>
             )}
 
