@@ -10,9 +10,16 @@ export class SeedService {
   constructor(private prisma: PrismaService) {}
 
   async ensureAdmin() {
-    const email = process.env.ADMIN_EMAIL || "emilly@admin.com";
-    const password = process.env.ADMIN_PASSWORD || "emillybia150407";
+    const email = process.env.ADMIN_EMAIL;
+    const password = process.env.ADMIN_PASSWORD;
     const name = process.env.ADMIN_NAME || "Emilly Admin";
+
+    if (!email || !password) {
+      this.logger.warn(
+        "ADMIN_EMAIL/ADMIN_PASSWORD não definidos — pulando criação do administrador."
+      );
+      return;
+    }
 
     const exists = await this.prisma.user.findUnique({ where: { email } });
     if (exists) {

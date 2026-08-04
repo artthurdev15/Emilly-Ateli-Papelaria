@@ -6,7 +6,7 @@ services:
     container_name: emily-postgres
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: senha_banco_local_123
       POSTGRES_DB: emily_atele
     ports:
       - "5432:5432"

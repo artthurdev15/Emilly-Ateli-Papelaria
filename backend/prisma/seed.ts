@@ -5,17 +5,26 @@ const prisma = new PrismaClient();
 
 async function main() {
   // ─── Admin padrão ───
-  const adminPassword = await bcrypt.hash("admin123", 10);
-  await prisma.user.upsert({
-    where: { email: "admin@emilyatele.com.br" },
-    update: {},
-    create: {
-      email: "admin@emilyatele.com.br",
-      passwordHash: adminPassword,
-      name: "Admin Emily",
-      role: UserRole.ADMIN,
-    },
-  });
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  const adminName = process.env.ADMIN_NAME || "Emilly Admin";
+
+  if (adminEmail && adminPassword) {
+    const adminPasswordHash = await bcrypt.hash(adminPassword, 10);
+    await prisma.user.upsert({
+      where: { email: adminEmail },
+      update: {},
+      create: {
+        email: adminEmail,
+        passwordHash: adminPasswordHash,
+        name: adminName,
+        role: UserRole.ADMIN,
+      },
+    });
+    console.log(`👤 Usuário administrador garantido (${adminEmail})`);
+  } else {
+    console.warn("⚠️ ADMIN_EMAIL/ADMIN_PASSWORD não definidos — pulando criação do admin.");
+  }
 
   // ─── Categorias ───
   const cats = [
