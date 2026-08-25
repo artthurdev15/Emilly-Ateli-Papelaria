@@ -7,6 +7,9 @@ async function bootstrap() {
 
   app.enableCors();
 
+  const expressApp = app.getHttpAdapter().getInstance();
+  expressApp.set("trust proxy", true);
+
   const seed = app.get(SeedService);
   await seed.ensureAdmin();
 

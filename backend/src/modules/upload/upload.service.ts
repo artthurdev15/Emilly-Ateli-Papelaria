@@ -17,7 +17,9 @@ export class UploadService {
 
   async saveFile(
     file: Express.Multer.File,
-    subfolder = "artworks"
+    subfolder = "artworks",
+    host?: string,
+    protocol?: string,
   ): Promise<{ url: string; fileName: string }> {
     this.validateFile(file);
 
@@ -32,7 +34,9 @@ export class UploadService {
 
     await writeFile(filePath, file.buffer);
 
-    const url = `/uploads/${subfolder}/${fileName}`;
+    const proto = protocol || "http";
+    const hostOverride = host || `localhost:${process.env.PORT || "3001"}`;
+    const url = `${proto}://${hostOverride}/uploads/${subfolder}/${fileName}`;
     return { url, fileName };
   }
 

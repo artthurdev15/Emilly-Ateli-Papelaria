@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ShoppingBag, ArrowRight } from "lucide-react";
 import { api } from "@/lib/api";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, resolveImageUrl } from "@/lib/utils";
 import { useCart } from "@/contexts/CartContext";
 import { Button } from "@/components/ui/Button";
 import type { Product } from "@/types";
@@ -43,7 +43,7 @@ export function FeaturedProducts() {
               <div className="relative h-48 md:h-64 bg-gradient-to-br from-rose-50 to-lilac-50 rounded-t-2xl overflow-hidden">
                 {product.images?.[0] ? (
                   <Image
-                    src={product.images[0].url}
+                    src={resolveImageUrl(product.images[0].url)}
                     alt={product.name}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"

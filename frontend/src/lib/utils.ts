@@ -35,3 +35,10 @@ export function slugify(text: string): string {
 export function cn(...classes: (string | boolean | undefined | null)[]): string {
   return classes.filter(Boolean).join(" ");
 }
+
+export function resolveImageUrl(url: string): string {
+  if (!url) return url;
+  if (url.startsWith("http")) return url;
+  const backendUrl = API_BASE_URL.replace(/\/api\/?$/, "");
+  return `${backendUrl}${url}`;
+}

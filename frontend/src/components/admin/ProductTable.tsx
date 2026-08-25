@@ -14,7 +14,7 @@ import {
   Palette,
   Package,
 } from "lucide-react";
-import { formatPrice, cn, API_BASE_URL } from "@/lib/utils";
+import { formatPrice, cn, API_BASE_URL, resolveImageUrl } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 
 interface Product {
@@ -133,7 +133,7 @@ export function ProductTable() {
                       <div className="flex items-center gap-3">
                         <div className="relative w-10 h-10 rounded-lg bg-gradient-to-br from-rose-50 to-lilac-50 shrink-0 overflow-hidden">
                           {p.images?.[0] ? (
-                            <Image src={p.images[0].url} alt="" fill className="object-cover" sizes="40px" />
+                            <Image src={resolveImageUrl(p.images[0].url)} alt="" fill className="object-cover" sizes="40px" />
                           ) : (
                             <Package size={16} className="text-rose-300" />
                           )}

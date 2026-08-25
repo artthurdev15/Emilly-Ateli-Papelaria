@@ -5,6 +5,7 @@ import {
   UploadedFile,
   UseGuards,
   BadRequestException,
+  Req,
 } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { UploadService } from "./upload.service";
@@ -17,15 +18,15 @@ export class UploadController {
 
   @Post("artwork")
   @UseInterceptors(FileInterceptor("file"))
-  async uploadArtwork(@UploadedFile() file: Express.Multer.File) {
+  async uploadArtwork(@UploadedFile() file: Express.Multer.File, @Req() req: any) {
     if (!file) throw new BadRequestException("Nenhum arquivo enviado");
-    return this.upload.saveFile(file, "artworks");
+    return this.upload.saveFile(file, "artworks", req.get("host"), req.protocol);
   }
 
   @Post("image")
   @UseInterceptors(FileInterceptor("file"))
-  async uploadImage(@UploadedFile() file: Express.Multer.File) {
+  async uploadImage(@UploadedFile() file: Express.Multer.File, @Req() req: any) {
     if (!file) throw new BadRequestException("Nenhum arquivo enviado");
-    return this.upload.saveFile(file, "images");
+    return this.upload.saveFile(file, "images", req.get("host"), req.protocol);
   }
 }

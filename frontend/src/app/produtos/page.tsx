@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { Search, ShoppingBag, SlidersHorizontal, Palette, X } from "lucide-react";
 import { api } from "@/lib/api";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, resolveImageUrl } from "@/lib/utils";
 import { useCart } from "@/contexts/CartContext";
 import { Button } from "@/components/ui/Button";
 import type { Product } from "@/types";
@@ -120,7 +120,7 @@ function ProdutosContent() {
                 <Link href={`/produtos/${product.slug}`}>
       <div className="relative h-48 md:h-64 bg-gradient-to-br from-rose-50 to-lilac-50 rounded-t-2xl overflow-hidden">
             {product.images?.[0] ? (
-            <Image src={product.images[0].url} alt={product.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw" />
+            <Image src={resolveImageUrl(product.images[0].url)} alt={product.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw" />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
               <span className="text-4xl">🎨</span>

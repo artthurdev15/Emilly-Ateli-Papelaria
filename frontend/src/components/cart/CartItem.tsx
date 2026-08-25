@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Minus, Plus, Trash2, Palette } from "lucide-react";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, resolveImageUrl } from "@/lib/utils";
 import { useCart } from "@/contexts/CartContext";
 import type { CartItem as CartItemType } from "@/types";
 
@@ -14,7 +14,7 @@ export function CartItem({ item }: { item: CartItemType }) {
     <div className="flex items-center gap-4 p-4 card">
       <div className="relative w-20 h-20 rounded-xl bg-gradient-to-br from-rose-50 to-lilac-50 shrink-0 overflow-hidden">
         {product.images?.[0] ? (
-          <Image src={product.images[0].url} alt="" fill className="object-contain p-2" sizes="80px" />
+          <Image src={resolveImageUrl(product.images[0].url)} alt="" fill className="object-contain p-2" sizes="80px" />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
             <span className="text-2xl">🎨</span>

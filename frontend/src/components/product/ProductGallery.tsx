@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { resolveImageUrl } from "@/lib/utils";
 import type { ProductImage } from "@/types";
 
 export function ProductGallery({ images }: { images: ProductImage[] }) {
@@ -13,7 +14,7 @@ export function ProductGallery({ images }: { images: ProductImage[] }) {
       <div className="relative aspect-square bg-gradient-to-br from-rose-50 via-lilac-50 to-serenity-50 rounded-3xl">
         {sorted[selected] ? (
           <Image
-            src={sorted[selected].url}
+            src={resolveImageUrl(sorted[selected].url)}
             alt={sorted[selected].alt || ""}
             fill
             className="object-contain p-12"
@@ -38,7 +39,7 @@ export function ProductGallery({ images }: { images: ProductImage[] }) {
               }`}
             >
               <div className="relative w-full h-full">
-                <Image src={img.url} alt={img.alt || ""} fill className="object-cover" sizes="80px" />
+                <Image src={resolveImageUrl(img.url)} alt={img.alt || ""} fill className="object-cover" sizes="80px" />
               </div>
             </button>
           ))}

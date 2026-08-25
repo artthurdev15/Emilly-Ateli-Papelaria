@@ -13,7 +13,7 @@ import {
   AlertCircle,
   Palette,
 } from "lucide-react";
-import { slugify, API_BASE_URL } from "@/lib/utils";
+import { slugify, API_BASE_URL, resolveImageUrl } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 
@@ -285,7 +285,7 @@ export function ProductForm({ productId }: ProductFormProps) {
               <div className="grid grid-cols-3 gap-2">
                 {uploadedImages.map((url, i) => (
                   <div key={i} className="relative group aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-rose-50 to-lilac-50">
-                    <Image src={url} alt="" fill className="object-cover" sizes="200px" />
+                    <Image src={resolveImageUrl(url)} alt="" fill className="object-cover" sizes="200px" />
                     <button
                       type="button"
                       onClick={() => removeImage(i)}
