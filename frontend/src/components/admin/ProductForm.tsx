@@ -120,10 +120,14 @@ export function ProductForm({ productId }: ProductFormProps) {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
         body: formData,
       });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ message: "Erro no upload" }));
+        throw new Error(err.message || "Erro no upload");
+      }
       const data = await res.json();
       setUploadedImages((prev) => [...prev, data.url]);
-    } catch {
-      setError("Erro ao fazer upload da imagem");
+    } catch (err: any) {
+      setError(err.message || "Erro ao fazer upload da imagem");
     }
   };
 
@@ -156,6 +160,7 @@ export function ProductForm({ productId }: ProductFormProps) {
       isActive: form.isActive,
       featured: form.featured,
       categoryIds: form.categoryIds.length > 0 ? form.categoryIds : undefined,
+      imageUrls: uploadedImages.length > 0 ? uploadedImages : undefined,
     };
 
     try {

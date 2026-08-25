@@ -85,6 +85,10 @@ export class CreateProductDto {
   categoryIds?: string[];
 
   @IsOptional()
+  @IsArray()
+  imageUrls?: string[];
+
+  @IsOptional()
   @IsJSON()
   metadata?: any;
 }

@@ -144,13 +144,21 @@ export class ProductsService {
     });
     if (existingSku) throw new ConflictException("SKU já existe");
 
-    const { categoryIds, ...data } = dto;
+    const { categoryIds, imageUrls, ...data } = dto;
 
     return this.prisma.product.create({
       data: {
         ...data,
         categories: categoryIds?.length
           ? { create: categoryIds.map((id) => ({ categoryId: id })) }
+          : undefined,
+        images: imageUrls?.length
+          ? {
+              create: imageUrls.map((url, index) => ({
+                url,
+                order: index,
+              })),
+            }
           : undefined,
       },
       include: {
@@ -179,7 +187,7 @@ export class ProductsService {
         throw new ConflictException("SKU já existe");
     }
 
-    const { categoryIds, ...data } = dto;
+    const { categoryIds, imageUrls, ...data } = dto;
 
     if (categoryIds) {
       await this.prisma.productCategory.deleteMany({
@@ -187,6 +195,19 @@ export class ProductsService {
       });
       await this.prisma.productCategory.createMany({
         data: categoryIds.map((categoryId) => ({ productId: id, categoryId })),
+      });
+    }
+
+    if (imageUrls) {
+      await this.prisma.productImage.deleteMany({
+        where: { productId: id },
+      });
+      await this.prisma.productImage.createMany({
+        data: imageUrls.map((url, index) => ({
+          productId: id,
+          url,
+          order: index,
+        })),
       });
     }
 
